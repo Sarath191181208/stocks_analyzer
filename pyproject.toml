@@ -1,0 +1,17 @@
+[project]
+name = "stocks-analyzer"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.13"
+dependencies = [
+    "numpy>=2.3.2",
+    "pandas>=2.3.2",
+    "tqdm>=4.67.1",
+]
+
+[dependency-groups]
+dev = [
+    "black>=25.1.0",
+    "pyright>=1.1.404",
+]
