@@ -1,7 +1,7 @@
 import numpy as np
 import pandas as pd
 
-def generate_realistic_stock(
+def generate_single_stock(
     duration: int,
     initial_value: float,
     delta: float,
@@ -21,7 +21,7 @@ def generate_realistic_stock(
     initial_value : float
         Starting stock price.
     delta : float
-        Expected daily drift (average return).
+        Expected daily drift (average return) usually quite small (0.00005 = 0.005% per day / 1.8% per year).
     base_volatility : float
         Baseline volatility of daily returns.
     jump_prob : float
