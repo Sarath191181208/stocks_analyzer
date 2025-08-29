@@ -19,7 +19,7 @@ def generate_market(
         
         # Randomized but realistic parameters
         initial_value = rng.uniform(20, 500)      # stock starting price
-        delta = rng.uniform(-0.0005, 0.001)       # drift (downward to upward)
+        annual_return = rng.uniform(-0.12, 0.28)
         base_volatility = rng.uniform(0.01, 0.05) # daily volatility
         jump_prob = rng.uniform(0.01, 0.05)       # chance of sudden jump
         jump_size_mean = rng.uniform(0.02, 0.08)  # avg jump size
@@ -28,7 +28,7 @@ def generate_market(
         prices = generate_single_stock(
             duration=duration,
             initial_value=initial_value,
-            delta=delta,
+            annual_return=annual_return,
             base_volatility=base_volatility,
             jump_prob=jump_prob,
             jump_size_mean=jump_size_mean,
@@ -47,5 +47,5 @@ def generate_market(
     return pd.concat(all_data, ignore_index=True)
 
 if __name__ == "__main__":
-    df = generate_stock_list(n_stocks=5, duration=30, seed=123)
+    df = generate_market(n_stocks=5, duration=30, seed=123)
     print(df.head(15))
