@@ -4,7 +4,7 @@ import pandas as pd
 def generate_single_stock(
     duration: int,
     initial_value: float,
-    delta: float,
+    annual_return: float = 0.08,   # expected annual drift (e.g., 0.08 = 8% per year)
     base_volatility: float = 0.02,
     jump_prob: float = 0.02,
     jump_size_mean: float = 0.05,
@@ -20,8 +20,8 @@ def generate_single_stock(
         Number of days to simulate.
     initial_value : float
         Starting stock price.
-    delta : float
-        Expected daily drift (average return) usually quite small (0.00005 = 0.005% per day / 1.8% per year).
+    annual_return : float
+        Expected annual drift (e.g., 0.08 = 8%).
     base_volatility : float
         Baseline volatility of daily returns.
     jump_prob : float
@@ -30,6 +30,8 @@ def generate_single_stock(
         Mean jump size (as fraction of price).
     jump_size_std : float
         Std deviation of jump size.
+    trading_days : int
+        Number of trading days in a year (default=252).
     seed : int, optional
         Random seed for reproducibility.
 
@@ -40,6 +42,9 @@ def generate_single_stock(
     """
     if seed is not None:
         np.random.seed(seed)
+
+    # convert annual return into daily drift
+    delta = (1+annual_return)**(1/365) - 1
 
     prices = np.zeros(duration)
     prices[0] = initial_value
@@ -56,7 +61,7 @@ def generate_single_stock(
         # jump diffusion
         if np.random.rand() < jump_prob:
             jump = np.random.normal(jump_size_mean, jump_size_std)
-            daily_return += jump
+            daily_return += (jump/365)
 
         prices[t] = prices[t - 1] * np.exp(daily_return)
 
