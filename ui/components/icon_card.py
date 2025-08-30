@@ -1,9 +1,11 @@
 from dash import html
 
+from ui.const import DEFAULT_THEME
+
 card_style = {
     "flex": "1",
     "padding": "20px",
-    "backgroundColor": "white",
+    "backgroundColor": DEFAULT_THEME.background_light,
     "borderRadius": "12px",
     "boxShadow": "0 2px 6px rgba(0,0,0,0.1)",
     "textAlign": "center",

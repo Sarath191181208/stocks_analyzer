@@ -1,6 +1,7 @@
 from dash import html, dash_table
 
 from stratergy.portfolio import Portfolio
+from ui.const import DEFAULT_THEME
 
 
 def HistoryActionsTable(portfolio: Portfolio):
@@ -22,6 +23,7 @@ def HistoryActionsTable(portfolio: Portfolio):
                 columns=[{"name": i, "id": i} for i in df_history.columns],
                 style_table={
                     "overflowX": "auto",
+                    "background": "black",
                     "borderRadius": "10px",
                     "boxShadow": "0 2px 6px rgba(0,0,0,0.1)",
                     "marginTop": "10px",
@@ -43,21 +45,22 @@ def HistoryActionsTable(portfolio: Portfolio):
                 style_data={
                     "whiteSpace": "normal",
                     "height": "auto",
+                    "backgroundColor": DEFAULT_THEME.background,
                 },
                 style_data_conditional=[
                     {
                         "if": {"row_index": "odd"},
-                        "backgroundColor": "#f9f9f9",
+                        "backgroundColor": DEFAULT_THEME.background_light,
                     },
                     {
                         "if": {"state": "active"},  # highlight selected cell
-                        "backgroundColor": "#e9ecef",
+                        "backgroundColor": DEFAULT_THEME.background_dark,
                         "border": "1px solid #007bff",
                     },
                     {
                         "if": {"state": "selected"},  # when row is clicked
-                        "backgroundColor": "#d6e9f9",
-                        "color": "black",
+                        "backgroundColor": DEFAULT_THEME.background,
+                        "color": DEFAULT_THEME.color,
                     },
                 ],
                 fixed_rows={"headers": True},  # sticky headers
@@ -65,7 +68,7 @@ def HistoryActionsTable(portfolio: Portfolio):
             ),
         ],
         style={
-            "backgroundColor": "white",
+            "backgroundColor": DEFAULT_THEME.background_light,
             "borderRadius": "12px",
             "boxShadow": "0 2px 6px rgba(0,0,0,0.1)",
             "padding": "20px",

@@ -1,8 +1,12 @@
-import pandas as pd 
+import pandas as pd
 from dash import Dash, dcc, html, Input, Output
 
+from .const import DEFAULT_THEME
 from .viz_stratergy import run as run_single, viz_run
+import plotly.io as pio
+
 from stratergy import registry
+
 
 def run(market: pd.DataFrame, DAYS: int):
     app = Dash(
@@ -12,6 +16,7 @@ def run(market: pd.DataFrame, DAYS: int):
         ],
     )
 
+    pio.templates.default = "plotly_dark"
     # Pick the first strategy by default
     print(registry.strategies)
     default_strategy = registry.strategies[1]
@@ -26,17 +31,18 @@ def run(market: pd.DataFrame, DAYS: int):
     app.layout = html.Div(
         style={
             "minHeight": "100vh",
-            "backgroundColor": "#f4f6f9",
+            "backgroundColor": DEFAULT_THEME.background,
             "display": "flex",
             "justifyContent": "center",
             "alignItems": "flex-start",
             "padding": "40px",
+            "color": DEFAULT_THEME.color,
             "fontFamily": "Inter, Arial, sans-serif",
         },
         children=[
             html.Div(
                 style={
-                    "background": "white",
+                    "background": DEFAULT_THEME.background_light,
                     "padding": "30px",
                     "borderRadius": "16px",
                     "boxShadow": "0 4px 20px rgba(0,0,0,0.05)",
@@ -47,38 +53,66 @@ def run(market: pd.DataFrame, DAYS: int):
                     # Header
                     html.Div(
                         [
-                            html.I(className="fas fa-chart-line",
-                                   style={"color": "#007bff", "marginRight": "10px"}),
-                            html.Span("Strategy Dashboard",
-                                      style={"fontSize": "24px", "fontWeight": "600"})
+                            html.I(
+                                className="fas fa-chart-line",
+                                style={"color": "#007bff", "marginRight": "10px"},
+                            ),
+                            html.Span(
+                                "Strategy Dashboard",
+                                style={"fontSize": "24px", "fontWeight": "600"},
+                            ),
                         ],
-                        style={"display": "flex", "alignItems": "center", "marginBottom": "25px"},
+                        style={
+                            "display": "flex",
+                            "alignItems": "center",
+                            "marginBottom": "25px",
+                        },
                     ),
-
                     # Dropdown
                     dcc.Dropdown(
                         id="strategy-dropdown",
                         options=[
                             {
-                                "label": html.Span([
-                                    html.I(className="fas fa-bullseye",
-                                           style={"marginRight": "8px", "color": "#555"}),
-                                    s.name
-                                ], style={"display": "flex", "alignItems": "center"}),
+                                "label": html.Span(
+                                    [
+                                        html.I(
+                                            className="fas fa-bullseye",
+                                            style={"marginRight": "8px"},
+                                        ),
+                                        s.name,
+                                    ],
+                                    style={
+                                        "display": "inline-flex",
+                                        "alignItems": "center",
+                                        "gap": "8px",
+                                        "padding": "6px 8px",  # small pill look for label text
+                                        "borderRadius": "6px",
+                                        "color": DEFAULT_THEME.color_light,
+                                        # Avoid relying on label background for the whole menu; use CSS for menu bg.
+                                    },
+                                ),
                                 "value": s.name,
+                                # when label is a component, set 'search' so the search box can match text
+                                "search": s.name,
                             }
                             for s in registry.strategies
                         ],
-                        value=default_strategy.name,  # default selection
+                        value=default_strategy.name,
                         clearable=False,
+                        searchable=True,
                         style={
                             "width": "350px",
                             "marginBottom": "25px",
                             "borderRadius": "8px",
                             "fontSize": "16px",
+                            "backgroundColor": DEFAULT_THEME.background_light,
+                            "color": DEFAULT_THEME.color,
+                            "padding": "6px 10px",
                         },
+                        # dropdown sizing helpers provided by Dash:
+                        optionHeight=44,  # px per option (default 35)
+                        maxHeight=300,  # max height of expanded menu
                     ),
-
                     # Graph area with loading spinner
                     dcc.Loading(
                         id="loading",
@@ -88,7 +122,7 @@ def run(market: pd.DataFrame, DAYS: int):
                             id="strategy-container",
                             style={"marginTop": "20px"},
                             children=dashboard_layout,  # show default immediately
-                        )
+                        ),
                     ),
                 ],
             )
@@ -109,4 +143,3 @@ def run(market: pd.DataFrame, DAYS: int):
     print("running the app")
 
     app.run(debug=True)
-

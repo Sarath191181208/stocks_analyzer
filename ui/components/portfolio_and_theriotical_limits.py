@@ -2,6 +2,8 @@ import pandas as pd
 import plotly.graph_objects as go
 from dash import dcc, html
 
+from ui.const import DEFAULT_THEME
+
 
 def PortfolioWithReturnLimits(
     results: pd.DataFrame,
@@ -19,7 +21,7 @@ def PortfolioWithReturnLimits(
     return html.Div(
         [dcc.Graph(figure=gph)],
         style={
-            "backgroundColor": "white",
+            "backgroundColor": DEFAULT_THEME.background_light,
             "borderRadius": "12px",
             "boxShadow": "0 2px 6px rgba(0,0,0,0.1)",
             "padding": "20px",

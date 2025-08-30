@@ -8,6 +8,8 @@ from stratergy import portfolio
 from stratergy.simulate import simulate_strategy
 from stratergy.stratergy import StrategyEntry
 
+from .const import DEFAULT_THEME
+
 from .components import (
     PortfolioWithReturnLimits,
     HistoryActionsTable,
@@ -99,7 +101,7 @@ def viz_run(res: RunResult, market: pd.DataFrame):
     layout = html.Div(
         style={
             "fontFamily": "Arial, sans-serif",
-            "backgroundColor": "#f8f9fa",
+            "backgroundColor": DEFAULT_THEME.background,
             "padding": "20px",
         },
         children=[

@@ -1,21 +1,31 @@
-# typed dict for colors 
-from typing import TypedDict 
+from dataclasses import dataclass
 
-class Colors(TypedDict):
+
+@dataclass(frozen=True)
+class Colors:
+    plotly_template: str
     background: str
-    bg_1 : str 
-    bg_2 : str 
+    background_light: str
+    background_dark: str
+    color: str
+    color_light: str
 
-DARK_THEME: Colors = { 
-    "background": "#121212",
-    "bg_1": "#1E1E1E",
-    "bg_2": "#2C2C2C",
-}
 
-LIGHT_THEME: Colors = { 
-    "background": "#F8F9FA",
-    "bg_1": "#FFFFFF",
-    "bg_2": "#E9ECEF",
-}
-DEFAULT_THEME = LIGHT_THEME
+DARK_THEME: Colors = Colors(
+    background="#121212",
+    background_light="#1E1E1E",
+    background_dark="#2C2C2C",
+    color="white",
+    color_light="#555",
+    plotly_template="plotly_dark"
+)
 
+LIGHT_THEME: Colors = Colors(
+    background="#f4f6f9",
+    background_light="#FFFFFF",
+    background_dark="#E9ECEF",
+    color="black",
+    color_light="#555",
+    plotly_template="plotly_white"
+)
+DEFAULT_THEME = DARK_THEME
