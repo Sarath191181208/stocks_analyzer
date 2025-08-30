@@ -28,4 +28,4 @@ LIGHT_THEME: Colors = Colors(
     color_light="#555",
     plotly_template="plotly_white"
 )
-DEFAULT_THEME = DARK_THEME
+DEFAULT_THEME = LIGHT_THEME

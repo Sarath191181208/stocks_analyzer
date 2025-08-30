@@ -1,0 +1,31 @@
+/* assets/strategy-dropdown.css */
+#strategy-dropdown .Select-control {
+  background-color: #2a2a2a; /* DEFAULT_THEME.background_light */
+  color: #ffffff;            /* DEFAULT_THEME.color */
+  border-radius: 8px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.12);
+}
+
+#strategy-dropdown .Select-menu-outer {
+  background-color: #1e1e1e; /* DEFAULT_THEME.background */
+  border-radius: 8px;
+  border: 1px solid rgba(255,255,255,0.06);
+}
+
+#strategy-dropdown .Select-option {
+  padding: 8px 12px;
+  display: flex;
+  align-items: center;
+  color: #cccccc; /* DEFAULT_THEME.color_light */
+}
+
+#strategy-dropdown .Select-option.is-focused {
+  background-color: rgba(255,255,255,0.04);
+}
+
+#strategy-dropdown .Select-value-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  color: #ffffff; /* DEFAULT_THEME.color */
+}

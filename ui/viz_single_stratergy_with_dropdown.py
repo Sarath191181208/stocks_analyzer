@@ -16,7 +16,7 @@ def run(market: pd.DataFrame, DAYS: int):
         ],
     )
 
-    pio.templates.default = "plotly_dark"
+    pio.templates.default = DEFAULT_THEME.plotly_template
     # Pick the first strategy by default
     print(registry.strategies)
     default_strategy = registry.strategies[1]
