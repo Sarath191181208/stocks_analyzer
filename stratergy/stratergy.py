@@ -10,7 +10,7 @@ class StrategyEntry:
 
 class StrateryRegistry:
     def __init__(self):
-        self.strategies = list()
+        self.strategies: list[StrategyEntry] = list()
     def add(self, entry: StrategyEntry):
         self.strategies.append(entry)
 
