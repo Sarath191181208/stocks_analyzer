@@ -4,10 +4,22 @@ import pandas as pd
 
 from ui.const import DEFAULT_THEME
 
+
 def plot_market(market):
     fig_market = px.line(
         market, x="day", y="price", color="name", title="Market Prices"
     )
+
+    # add index line from the data
+    market_index = market.groupby("day")["price"].mean().reset_index()
+    fig_market.add_scatter(
+        x=market_index["day"],
+        y=market_index["price"],
+        mode="lines",
+        name="Market Index",
+        line=dict(color="black", dash="dash"),
+    )
+
     return fig_market
 
 
