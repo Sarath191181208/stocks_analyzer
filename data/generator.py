@@ -44,7 +44,9 @@ def generate_market(
         })
         all_data.append(df)
 
-    return pd.concat(all_data, ignore_index=True)
+    df = pd.concat(all_data, ignore_index=True)
+    df.random_seed = seed  # Attach seed as attribute for reference 
+    return df
 
 if __name__ == "__main__":
     df = generate_market(n_stocks=5, duration=30, seed=123)

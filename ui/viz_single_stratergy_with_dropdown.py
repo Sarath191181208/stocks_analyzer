@@ -2,10 +2,11 @@ import pandas as pd
 from dash import Dash, dcc, html, Input, Output
 
 from .const import DEFAULT_THEME
-from .viz_stratergy import run as run_single, viz_run
+from .viz_stratergy import viz_run
 import plotly.io as pio
 
 from stratergy import registry
+from stratergy.simulate import run as run_single
 
 
 def run(market: pd.DataFrame, DAYS: int):
@@ -18,8 +19,7 @@ def run(market: pd.DataFrame, DAYS: int):
 
     pio.templates.default = DEFAULT_THEME.plotly_template
     # Pick the first strategy by default
-    print(registry.strategies)
-    default_strategy = registry.strategies[1]
+    default_strategy = registry.strategies[0]
 
     print("Creating layouts ....")
     res = run_single(market, default_strategy, DAYS)

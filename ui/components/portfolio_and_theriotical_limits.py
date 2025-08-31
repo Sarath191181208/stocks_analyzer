@@ -48,20 +48,20 @@ def plot_portfolio_with_best_and_worst_possible_return(
     )
 
     # Theoretical benchmarks
-    max_curve = initial_cash * best_return_possible
-    min_curve = initial_cash * worst_return_possible
-    fig_portfolio.add_hline(
-        y=max_curve,
-        line_dash="dash",
-        line_color="green",
-        annotation_text="Theoretical Max",
-    )
-    fig_portfolio.add_hline(
-        y=min_curve,
-        line_dash="dash",
-        line_color="red",
-        annotation_text="Theoretical Min",
-    )
+    # max_curve = initial_cash * best_return_possible
+    # min_curve = initial_cash * worst_return_possible
+    # fig_portfolio.add_hline(
+    #     y=max_curve,
+    #     line_dash="dash",
+    #     line_color="green",
+    #     annotation_text="Theoretical Max",
+    # )
+    # fig_portfolio.add_hline(
+    #     y=min_curve,
+    #     line_dash="dash",
+    #     line_color="red",
+    #     annotation_text="Theoretical Min",
+    # )
 
     fig_portfolio.update_layout(title="Portfolio Value vs Theoretical Bounds")
     return fig_portfolio
